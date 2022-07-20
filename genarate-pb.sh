@@ -1,6 +1,8 @@
 cd src/grpc/catalogpb
-protoc --js_out=import_style=commonjs,binary:. --grpc-web_out=import_style=commonjs,mode=grpcwebtext:. catalog.proto
+npx protoc --ts_out . catalog.proto
+
 cd ../offerpb/
-protoc --js_out=import_style=commonjs,binary:. --grpc-web_out=import_style=commonjs,mode=grpcwebtext:. offer.proto
+npx protoc --ts_out . offer.proto
+
 cd ../orderpb/
-protoc --js_out=import_style=commonjs,binary:. --grpc-web_out=import_style=commonjs,mode=grpcwebtext:. order.proto
+npx protoc --ts_out . order.proto

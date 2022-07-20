@@ -20,9 +20,18 @@ import {
   CreateOrderRequest,
   GetOrderDetailsRequest,
   HandleOrderCompletionRequest,
-} from "../../grpc/orderpb/order_pb";
-import { OrderClient } from "../../grpc/orderpb/order_grpc_web_pb";
+} from "../../grpc/orderpb/order";
+import { OrderClient } from "../../grpc/orderpb/order.client";
 import RatingResultCard from "../../components/rating-result-card";
+
+import {GrpcWebFetchTransport} from "@protobuf-ts/grpcweb-transport";
+
+const transport = new GrpcWebFetchTransport({
+  baseUrl: "http://localhost:8000"
+});
+
+const order_client = new OrderClient(transport);
+
 
 const { Step } = Steps;
 
@@ -31,8 +40,6 @@ const steps = [
   { title: "In Progress" },
   { title: "Completed" },
 ];
-
-let order_client = new OrderClient("http://localhost:8002");
 
 function OrderService() {
   const [globalState, setGlobalState] = useContext(StateContext);

@@ -6,10 +6,16 @@ import { StateContext, CatalogContext } from "../../constant";
 
 import SelectedCatalogItemCard from "../../components/selected-catalog-item-card";
 
-import { GetOfferStreamRequest } from "../../grpc/offerpb/offer_pb";
-import { OfferClient } from "../../grpc/offerpb/offer_grpc_web_pb";
+import { GetOfferStreamRequest } from "../../grpc/offerpb/offer";
+import { OfferClient } from "../../grpc/offerpb/offer.client";
 
-let offer_client = new OfferClient("http://localhost:8001");
+import {GrpcWebFetchTransport} from "@protobuf-ts/grpcweb-transport";
+
+const transport = new GrpcWebFetchTransport({
+  baseUrl: "http://localhost:8000"
+});
+
+const offer_client = new OfferClient(transport);
 
 function OfferService() {
   const [selectedCatalogItem, _] = useContext(CatalogContext);
